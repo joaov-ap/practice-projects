@@ -1,6 +1,7 @@
 package main.java.dev.joaov.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class Product {
     private Long id;
@@ -9,6 +10,7 @@ public class Product {
     private BigDecimal price;
     private int stock;
     private boolean active;
+    private List<String> tags;
 
     public Product() {
     }
@@ -20,6 +22,11 @@ public class Product {
         this.price = price;
         this.stock = stock;
         this.active = active;
+    }
+
+    public Product(Long id, String name, String category, BigDecimal price, int stock, boolean active, List<String> tags) {
+        this(id, name, category, price, stock, active);
+        this.tags = tags;
     }
 
     public Long getId() {
@@ -70,6 +77,14 @@ public class Product {
         this.active = active;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -79,6 +94,7 @@ public class Product {
                 ", price=" + price +
                 ", stock=" + stock +
                 ", active=" + active +
+                ", tags=" + tags +
                 '}';
     }
 }

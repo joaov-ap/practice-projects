@@ -3,6 +3,7 @@ package main.java.dev.joaov;
 import data.DataGenerator;
 import main.java.dev.joaov.model.Product;
 import main.java.dev.joaov.pipeline.FilterPipeline;
+import main.java.dev.joaov.pipeline.TransformPipeline;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,6 +11,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<Product> products = DataGenerator.generate();
+        filterPipeLineTest(products);
+        transformPipelineTest(products);
+
+    }
+
+    public static void filterPipeLineTest(List<Product> products) {
         List<Product> activeProducts = FilterPipeline.activeProducts(products);
         activeProducts.forEach(System.out::println);
         System.out.println();
@@ -33,5 +40,22 @@ public class Main {
         List<Product> activePriceHigherCategory = FilterPipeline.activePriceHigherCategory(products, price, "Electronics");
         activePriceHigherCategory.forEach(System.out::println);
         System.out.println();
+    }
+
+    public static void transformPipelineTest(List<Product> products) {
+        List<String> extractedNames = TransformPipeline.extractNames(products);
+        extractedNames.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> convertedProductsPrice = TransformPipeline.convertPricesToDollar(products, new BigDecimal("5"), new BigDecimal("3"));
+        convertedProductsPrice.forEach(System.out::println);
+        System.out.println();
+
+        List<String> formattedProducts = TransformPipeline.formattedProduct(products);
+        formattedProducts.forEach(System.out::println);
+        System.out.println();
+
+        List<String> uniqueTags = TransformPipeline.extractUniqueTags(products);
+        uniqueTags.forEach(System.out::println);
     }
 }

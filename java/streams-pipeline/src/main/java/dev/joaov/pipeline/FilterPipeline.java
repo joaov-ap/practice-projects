@@ -5,7 +5,11 @@ import main.java.dev.joaov.model.Product;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class FilterPipeline {
+public final class FilterPipeline {
+
+    private FilterPipeline() {
+    }
+
     public static List<Product> activeProducts(List<Product> products) {
         return products.stream().filter(Product::isActive).toList();
     }
@@ -15,7 +19,7 @@ public class FilterPipeline {
     }
 
     public static List<Product> productsByCategory(List<Product> products, String category) {
-        return products.stream().filter(p -> p.getCategory().equals(category)).toList();
+        return products.stream().filter(p -> p.getCategory().equalsIgnoreCase(category)).toList();
     }
 
     public static List<Product> stockBetweenMinMax(List<Product> products, int minStock, int maxStock) {
