@@ -14,10 +14,10 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<Product> products = DataGenerator.generate();
-//        filterPipeLineTest(products);
-//        transformPipelineTest(products);
-//        aggregatePipeline(products);
-
+        filterPipeLineTest(products);
+        transformPipelineTest(products);
+        aggregatePipeline(products);
+        advancedPipelineTest(products);
     }
 
     public static void filterPipeLineTest(List<Product> products) {
@@ -65,15 +65,40 @@ public class Main {
 
     public static void aggregatePipeline(List<Product> products) {
         Map<String, Double> averagePrice = AggregatePipeline.averagePriceByCategory(products);
-        System.out.println(averagePrice);
+        averagePrice.forEach((cat, avg) -> System.out.printf("%-12s R$ %.2f%n", cat, avg));
 
         Map<String, Product> expenseProductByCategory = AggregatePipeline.mostExpensiveProductByCategory(products);
-        System.out.println(expenseProductByCategory);
+        expenseProductByCategory.forEach((cat, p) ->
+                System.out.printf("%-12s %-20s R$ %8.2f%n", cat, p.getName(), p.getPrice()));
 
         Map<String, Integer> totalStockByCategory = AggregatePipeline.totalStockByCategory(products);
-        System.out.println(totalStockByCategory);
+        totalStockByCategory.forEach((cat, stock) ->
+                System.out.printf("%-12s %d unidades%n", cat, stock));
 
         Map<String, Long> activeProductsByCategory = AggregatePipeline.totalActiveProductsByCategory(products);
-        System.out.println(activeProductsByCategory);
+        activeProductsByCategory.forEach((cat, count) ->
+                System.out.printf("%-12s %d ativos%n", cat, count));
+    }
+
+    public static void advancedPipelineTest(List<Product> products) {
+        BigDecimal totalPriceInStock = AdvancedPipeline.totalPriceInStock(products);
+        System.out.printf("Valor total do inventário: R$ %.2f%n%n", totalPriceInStock);
+
+        System.out.println();
+        Map<Boolean, List<Product>> expensiveCheapDivision = AdvancedPipeline.expensiveCheapDivision(products, new BigDecimal("150.00"));
+        List<Product> expensiveProducts = expensiveCheapDivision.get(true);
+        List<Product> cheapProducts = expensiveCheapDivision.get(false);
+
+        expensiveProducts.forEach(System.out::println);
+        System.out.println();
+        cheapProducts.forEach(System.out::println);
+        System.out.println();
+
+        List<Product> orderByCategoryAndDescPrice = AdvancedPipeline.orderByCategoryAndDescPrice(products);
+        System.out.println(orderByCategoryAndDescPrice);
+
+        System.out.println();
+        List<Product> takeWhileStockLowerThan = AdvancedPipeline.takeWhileStockLowerThan(products, 100);
+        takeWhileStockLowerThan.forEach(System.out::println);
     }
 }
