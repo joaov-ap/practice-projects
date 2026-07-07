@@ -1,0 +1,50 @@
+body {
+    background-color: #969696;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.buttons-container {
+    display: flex;
+    gap: 15px;
+}
+
+.number {
+    font-size: 4rem;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+.button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.025rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    background-color: #005eaa;
+}
+
+.button:hover {
+    cursor: pointer;
+    background-color: #1978c5;
+}
+
+.green {
+    color: rgb(0, 255, 0);
+}
+
+.red {
+    color: red;
+}
+
+.gray {
+    color: rgb(170, 170, 170);
+}
